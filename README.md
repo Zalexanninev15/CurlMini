@@ -19,9 +19,9 @@ Graphical version of the curl utility for Windows 10
 
 ## How to use it?
 
-### GIF:
+### GIF: 
 
-Soon!
+[See here](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Example.gif)
 
 ### Text:
 
