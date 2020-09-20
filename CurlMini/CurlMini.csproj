@@ -87,6 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CurlMini.ico" />
+    <None Include="Resources\FullTextBox.png" />
+    <None Include="Resources\Insert.png" />
     <None Include="Resources\Recent.png" />
     <None Include="Resources\Delete.png" />
   </ItemGroup>
