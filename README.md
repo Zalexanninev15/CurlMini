@@ -1,4 +1,4 @@
-# CurlMini | [Screenshot](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Screenshot.png) | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/tag/1.0)
+# CurlMini | [Screenshot](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Screenshot.png) | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/tag/1.1)
 
 ![image](https://i.imgur.com/GaEEDbp.png)
 
@@ -11,10 +11,11 @@ Graphical version of the curl utility for Windows 10
 
 ## Features
 
-* Fast execution of curl commands/request
-* The last executed command is saved in the history and automatically inserted into the text field for the command to be executed again later
+* Fast execution of curl requests
+* The last executed request is saved in the history and automatically inserted into the text field for the requests to be executed again later
+* The ability to expand the text field for the command so that you can check the request for indents, unnecessary spaces, or even line breaks, which of course will affect the performance of the command
 * The result of the curl utility is recorded in text fields, and the results can be compared "right in front of your eyes"
-* Commands are recorded in the "command history" and then they can be reused. The list is also saved in a file called "commands. log"
+* Commands are recorded in the "requests history" and then they can be reused. The list is also saved in a file called "requests.log"
 * The utility performs smart checks and displays progress statuses of work
 
 ## How to use it?
@@ -27,11 +28,11 @@ Graphical version of the curl utility for Windows 10
 
 1. Launch the utility and make sure that your version of Windows 10 is higher or equal to build 1803. **This is very important!**
 
-2. Enter/paste the desired command in the "Command:" text field (the command must be written/inserted without "curl" at the beginning). 
+2. Enter/paste the desired command in the "Requests:" text field (the command must be written/inserted without "curl" at the beginning). 
 
 **For example:**
 
-*The original command:* 
+*The original request:* 
 
 ```bash
 curl -F shorten=https://www.youtube.com/ https://0x0.st
@@ -43,7 +44,7 @@ curl -F shorten=https://www.youtube.com/ https://0x0.st
 -F shorten=https://www.youtube.com/ https://0x0.st
 ```
 
-3. Click the "Send command" button and wait for the process to finish. Text fields with results will be automatically updated at the end of the process.
+3. Click the "Send request" button and wait for the process to finish. Text fields with results will be automatically updated at the end of the process.
 
 ## Build
 Compile using Visual Studio 2015-2019, tested on Visual Studio 2019
