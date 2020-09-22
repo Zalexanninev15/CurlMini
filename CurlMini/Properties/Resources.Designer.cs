@@ -83,6 +83,16 @@ namespace CurlMini.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GifExit {
+            get {
+                object obj = ResourceManager.GetObject("GifExit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GitHub {
             get {
                 object obj = ResourceManager.GetObject("GitHub", resourceCulture);
@@ -96,6 +106,16 @@ namespace CurlMini.Properties {
         internal static System.Drawing.Bitmap Insert {
             get {
                 object obj = ResourceManager.GetObject("Insert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap install_crt {
+            get {
+                object obj = ResourceManager.GetObject("install_crt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

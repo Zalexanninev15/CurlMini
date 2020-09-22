@@ -3,8 +3,10 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using System.IO.Compression;
 
 namespace CurlMini
 {
@@ -15,24 +17,40 @@ namespace CurlMini
         public MainForm()
         {
             InitializeComponent();
+            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
+                File.Delete("curl.exe");
+            if (File.Exists(@Application.StartupPath + @"\install.cmd"))
+                File.Delete("install.cmd");
+            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
+                File.Delete("curl.zip");
+            if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
+                File.Delete("curl-ca-bundle.crt");
+            if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
+                File.Delete("libcurl.def");
+            if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                File.Delete("libcurl.dll");
             using (RegistryKey reg = Registry.CurrentUser.CreateSubKey(@"Software\Zalexanninev15\CurlMini"))
             {
                 requestBox.Text = Convert.ToString(reg.GetValue("LastRequest"));
             }
-            string releaseId = "";
-            using (RegistryKey reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion"))
+            try
             {
-                releaseId = Convert.ToString(reg.GetValue("ReleaseId"));
+                ProcessStartInfo psiOpt111 = new ProcessStartInfo("curl");
+                psiOpt111.WindowStyle = ProcessWindowStyle.Hidden;
+                psiOpt111.UseShellExecute = false;
+                psiOpt111.CreateNoWindow = true;
+                Process procCommand111 = Process.Start(psiOpt111);
+                statusLabel.ForeColor = Color.Green;
+                curlLabelStatus.Text = "YES";
+                curlLabelStatus.ForeColor = Color.Green;
             }
-            if ((releaseId == "") || (Convert.ToInt32(releaseId) < 1802))
+            catch
             {
-                Version.Text = "Not supported";
-                Version.ForeColor = Color.Red;
-        }
-            if (Convert.ToInt32(releaseId) > 1802)
-            {
-                Version.Text = releaseId;
-                Version.ForeColor = Color.Green;
+                statusLabel.Text = "Error";
+                statusLabel.ForeColor = Color.Red;
+                curlLabelStatus.Text = "NO";
+                curlLabelStatus.ForeColor = Color.Red;
+                InstallCurl.Visible = true;
             }
             if (File.Exists("requests.log"))
             {
@@ -56,14 +74,15 @@ namespace CurlMini
                     pingReply = ping.Send("google.com");
                     if ((pingReply.Status != IPStatus.HardwareError) || (pingReply.Status != IPStatus.IcmpError))
                     {
-                        if ((Version.Text != "Not supported") && (Version.Text != "%VER%"))
+                        statusLabel.Text = "Sending...";
+                        if ((curlLabelStatus.Text != "NO") && (curlLabelStatus.Text != "???"))
                         {
-                            statusLabel.Text = "Sending...";
+                            statusLabel.ForeColor = Color.Green;
                             oldBox.Text = newBox.Text;
                             newBox.Clear();
                             try
                             {
-                                ProcessStartInfo psiOpt111 = new ProcessStartInfo(@"cmd.exe", "/C curl " + requestBox.Text + " && exit");
+                                ProcessStartInfo psiOpt111 = new ProcessStartInfo("curl", @requestBox.Text);
                                 psiOpt111.WindowStyle = ProcessWindowStyle.Hidden;
                                 psiOpt111.RedirectStandardOutput = true;
                                 psiOpt111.UseShellExecute = false;
@@ -77,21 +96,26 @@ namespace CurlMini
                                     reg.SetValue("LastRequest", requestBox.Text);
                                 }
                                 statusLabel.Text = "Ok!";
+                                statusLabel.ForeColor = Color.Green;
+                                if (newBox.Text == "")
+                                {
+                                    statusLabel.Text = "There is no data to output";
+                                    statusLabel.ForeColor = Color.Red;
+                                }
                             }
-                            catch { statusLabel.Text = "Error"; }
+                            catch { statusLabel.Text = "Error"; statusLabel.ForeColor = Color.Red; }
                         }
                         else
                         {
-                            statusLabel.Text = "Error";
-                            MessageBox.Show("Your Windows version is not Windows 10 build 1803 or higher!", "The request cannot be executed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Your Windows doesn't have the curl utility installed!", "The request cannot be executed", MessageBoxButtons.OK, MessageBoxIcon.Error); statusLabel.Text = "Error"; statusLabel.ForeColor = Color.Red;
                         }
                     }
                 }
-                catch { statusLabel.Text = "Error"; MessageBox.Show("No Internet access!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch { statusLabel.Text = "Error"; MessageBox.Show("No Internet access!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); statusLabel.ForeColor = Color.Red; }
             }
             else
             {
-                statusLabel.Text = "Error"; MessageBox.Show("You must fill in the text field with the request!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                statusLabel.Text = "Error"; MessageBox.Show("You must fill in the text field with the request!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); statusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -135,6 +159,18 @@ namespace CurlMini
         {
             if (File.Exists("requests.log"))
                 File.Delete("requests.log");
+            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
+                File.Delete("curl.exe");
+            if (File.Exists(@Application.StartupPath + @"\install.cmd"))
+                File.Delete("install.cmd");
+            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
+                File.Delete("curl.zip");
+            if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
+                File.Delete("curl-ca-bundle.crt");
+            if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
+                File.Delete("libcurl.def");
+            if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                File.Delete("libcurl.dll");
             using (var sw = new StreamWriter(new FileStream("requests.log", FileMode.Create)))
             {
                 if (recentList != null)
@@ -150,6 +186,123 @@ namespace CurlMini
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             requestBox.Text = Clipboard.GetText();
+        }
+
+        async void InstallCurl_Click(object sender, EventArgs e)
+        {
+            statusLabel.Text = "Installing the curl utility...";
+            statusLabel.ForeColor = Color.Green;
+            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
+                File.Delete("curl.exe");
+            if (File.Exists(@Application.StartupPath + @"\install.cmd"))
+                File.Delete("install.cmd");
+            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
+                File.Delete("curl.zip");
+            if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
+                File.Delete("curl-ca-bundle.crt");
+            if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
+                File.Delete("libcurl.def");
+            if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                File.Delete("libcurl.dll");
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.DownloadFile(@"https://github.com/Zalexanninev15/CurlMini/raw/master/install_curl.zip", @Application.StartupPath + @"\curl.zip");
+            }
+            catch  { }
+            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
+            {
+                try
+                { 
+                    ZipFile.ExtractToDirectory(@Application.StartupPath + @"\curl.zip", @Application.StartupPath + @"\");
+                    if (File.Exists(@Application.StartupPath + @"\curl.exe") && File.Exists(@Application.StartupPath + @"\install.cmd") && File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt") && File.Exists(@Application.StartupPath + @"\libcurl.def") && File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                    {
+                        panel2.Visible = true;
+                        pictureBox7.Enabled = true;
+                        ProcessStartInfo psiOpt = new ProcessStartInfo("install.cmd");
+                        psiOpt.WindowStyle = ProcessWindowStyle.Hidden;
+                        psiOpt.CreateNoWindow = true;
+                        psiOpt.Verb = "runAs";
+                        Process procCommand = Process.Start(psiOpt);
+                        procCommand.WaitForExit();
+                        try
+                        {
+                            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
+                                File.Delete("curl.exe");
+                            ProcessStartInfo psiOpt1111 = new ProcessStartInfo("curl");
+                            psiOpt1111.WindowStyle = ProcessWindowStyle.Hidden;
+                            psiOpt1111.CreateNoWindow = true;
+                            Process procCommand1111 = Process.Start(psiOpt1111);
+                            statusLabel.Text = "Ok!";
+                            statusLabel.ForeColor = Color.Green;
+                            curlLabelStatus.Text = "YES";
+                            curlLabelStatus.ForeColor = Color.Green;
+                            InstallCurl.Visible = false;
+                        }
+                        catch
+                        {
+                            statusLabel.Text = "Error";
+                            statusLabel.ForeColor = Color.Red;
+                            curlLabelStatus.Text = "NO";
+                            curlLabelStatus.ForeColor = Color.Red;
+                        }
+                        if (File.Exists(@Application.StartupPath + @"\curl.exe"))
+                            File.Delete("curl.exe");
+                        if (File.Exists(@Application.StartupPath + @"\install.cmd"))
+                            File.Delete("install.cmd");
+                        if (File.Exists(@Application.StartupPath + @"\curl.zip"))
+                            File.Delete("curl.zip");
+                        if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
+                            File.Delete("curl-ca-bundle.crt");
+                        if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
+                            File.Delete("libcurl.def");
+                        if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                            File.Delete("libcurl.dll");
+                    }
+                    else
+                    {
+                        statusLabel.Text = "Error";
+                        statusLabel.ForeColor = Color.Red;
+                        curlLabelStatus.Text = "NO";
+                        curlLabelStatus.ForeColor = Color.Red;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Error installing the curl utility", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (File.Exists(@Application.StartupPath + @"\curl.exe"))
+                        File.Delete("curl.exe");
+                    if (File.Exists(@Application.StartupPath + @"\install.cmd"))
+                        File.Delete("install.cmd");
+                    if (File.Exists(@Application.StartupPath + @"\curl.zip"))
+                        File.Delete("curl.zip");
+                    if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
+                        File.Delete("curl-ca-bundle.crt");
+                    if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
+                        File.Delete("libcurl.def");
+                    if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                        File.Delete("libcurl.dll");
+                    statusLabel.Text = "Error";
+                    statusLabel.ForeColor = Color.Red;
+                    curlLabelStatus.Text = "NO";
+                    curlLabelStatus.ForeColor = Color.Red;
+                }
+            }
+            else
+            {
+                MessageBox.Show("The utility can't download the archive with the curl utility!\nNo access to the server!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                statusLabel.Text = "Error";
+                statusLabel.ForeColor = Color.Red;
+                curlLabelStatus.Text = "NO";
+                curlLabelStatus.ForeColor = Color.Red;
+            }
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            pictureBox7.Enabled = false;
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)

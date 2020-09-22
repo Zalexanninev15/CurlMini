@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -87,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CurlMini.ico" />
+    <None Include="Resources\GifExit.png" />
+    <None Include="Resources\install_crt.gif" />
     <None Include="Resources\FullTextBox.png" />
     <None Include="Resources\Insert.png" />
     <None Include="Resources\Recent.png" />
