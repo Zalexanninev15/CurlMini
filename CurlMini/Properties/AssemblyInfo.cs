@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных со сборкой.
 [assembly: AssemblyTitle("CurlMini")]
-[assembly: AssemblyDescription("Graphical version of the curl utility for Windows 10")]
+[assembly: AssemblyDescription("Graphical version of the curl utility for Windows 7-10")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zalexanninev15")]
 [assembly: AssemblyProduct("CurlMini")]
