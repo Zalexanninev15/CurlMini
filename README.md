@@ -1,4 +1,4 @@
-# CurlMini | [Screenshot](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Screenshot.png) | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/tag/1.1)
+# CurlMini | [Screenshot](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Screenshot.png) | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/tag/1.2)
 
 ![image](https://i.imgur.com/GaEEDbp.png)
 
@@ -6,13 +6,14 @@
 Graphical version of the curl utility for Windows 10
 
 ## System requirements
-* **OS:** Windows 10 (build 1803 or or higher)
-* **Additional:** Microsoft .NET Framework 4.5
+* **OS:** Windows 7/8/8.1/10
+* **Additional:** Microsoft .NET Framework 4.5, curl (if the utility is not available, you will be prompted to install it in semi-automatic mode)
 
 ## Features
 
 * Fast execution of curl requests
 * The last executed request is saved in the history and automatically inserted into the text field for the requests to be executed again later
+* Unique feature of installing curl utility on all versions of Windows (7-10)
 * The ability to expand the text field for the command so that you can check the request for indents, unnecessary spaces, or even line breaks, which of course will affect the performance of the command
 * The result of the curl utility is recorded in text fields, and the results can be compared "right in front of your eyes"
 * Commands are recorded in the "requests history" and then they can be reused. The list is also saved in a file called "requests.log"
