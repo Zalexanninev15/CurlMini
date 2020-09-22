@@ -3,7 +3,7 @@
 ![image](https://i.imgur.com/GaEEDbp.png)
 
 ## Description
-Graphical version of the curl utility for Windows 10
+Graphical version of the curl utility for Windows 7-10
 
 ## System requirements
 * **OS:** Windows 7/8/8.1/10
