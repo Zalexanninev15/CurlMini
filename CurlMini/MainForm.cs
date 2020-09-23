@@ -3,10 +3,10 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using System.IO.Compression;
+using System.Reflection;
+using System.Net.NetworkInformation;
 
 namespace CurlMini
 {
@@ -17,18 +17,8 @@ namespace CurlMini
         public MainForm()
         {
             InitializeComponent();
-            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
-                File.Delete("curl.exe");
-            if (File.Exists(@Application.StartupPath + @"\install.cmd"))
-                File.Delete("install.cmd");
-            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
-                File.Delete("curl.zip");
-            if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
-                File.Delete("curl-ca-bundle.crt");
-            if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
-                File.Delete("libcurl.def");
-            if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
-                File.Delete("libcurl.dll");
+            if (Directory.Exists(@Application.StartupPath + @"\curl32"))
+                Directory.Delete("curl32", true);
             using (RegistryKey reg = Registry.CurrentUser.CreateSubKey(@"Software\Zalexanninev15\CurlMini"))
             {
                 requestBox.Text = Convert.ToString(reg.GetValue("LastRequest"));
@@ -159,18 +149,8 @@ namespace CurlMini
         {
             if (File.Exists("requests.log"))
                 File.Delete("requests.log");
-            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
-                File.Delete("curl.exe");
-            if (File.Exists(@Application.StartupPath + @"\install.cmd"))
-                File.Delete("install.cmd");
-            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
-                File.Delete("curl.zip");
-            if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
-                File.Delete("curl-ca-bundle.crt");
-            if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
-                File.Delete("libcurl.def");
-            if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
-                File.Delete("libcurl.dll");
+            if (Directory.Exists(@Application.StartupPath + @"\curl32"))
+                Directory.Delete("curl32", true);
             using (var sw = new StreamWriter(new FileStream("requests.log", FileMode.Create)))
             {
                 if (recentList != null)
@@ -192,23 +172,11 @@ namespace CurlMini
         {
             statusLabel.Text = "Installing the curl utility...";
             statusLabel.ForeColor = Color.Green;
-            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
-                File.Delete("curl.exe");
-            if (File.Exists(@Application.StartupPath + @"\install.cmd"))
-                File.Delete("install.cmd");
-            if (File.Exists(@Application.StartupPath + @"\curl.zip"))
-                File.Delete("curl.zip");
-            if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
-                File.Delete("curl-ca-bundle.crt");
-            if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
-                File.Delete("libcurl.def");
-            if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
-                File.Delete("libcurl.dll");
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            if (Directory.Exists(@Application.StartupPath + @"\curl32"))
+                Directory.Delete("curl32", true);
             try
             {
-                WebClient wc = new WebClient();
-                wc.DownloadFile(@"https://github.com/Zalexanninev15/CurlMini/raw/master/install_curl.zip", @Application.StartupPath + @"\curl.zip");
+                File.WriteAllBytes("curl.zip", Properties.Resources.curl);
             }
             catch  { }
             if (File.Exists(@Application.StartupPath + @"\curl.zip"))
@@ -216,20 +184,25 @@ namespace CurlMini
                 try
                 { 
                     ZipFile.ExtractToDirectory(@Application.StartupPath + @"\curl.zip", @Application.StartupPath + @"\");
-                    if (File.Exists(@Application.StartupPath + @"\curl.exe") && File.Exists(@Application.StartupPath + @"\install.cmd") && File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt") && File.Exists(@Application.StartupPath + @"\libcurl.def") && File.Exists(@Application.StartupPath + @"\libcurl.dll"))
+                    File.Delete("curl.zip");
+                    if (File.Exists(@Application.StartupPath + @"\curl32\curl.exe") && File.Exists(@Application.StartupPath + @"\curl32\install.cmd") && File.Exists(@Application.StartupPath + @"\curl32\curl-ca-bundle.crt") && File.Exists(@Application.StartupPath + @"\curl32\libcurl.def") && File.Exists(@Application.StartupPath + @"\curl32\libcurl.dll"))
                     {
-                        panel2.Visible = true;
-                        pictureBox7.Enabled = true;
-                        ProcessStartInfo psiOpt = new ProcessStartInfo("install.cmd");
-                        psiOpt.WindowStyle = ProcessWindowStyle.Hidden;
-                        psiOpt.CreateNoWindow = true;
-                        psiOpt.Verb = "runAs";
-                        Process procCommand = Process.Start(psiOpt);
-                        procCommand.WaitForExit();
                         try
                         {
-                            if (File.Exists(@Application.StartupPath + @"\curl.exe"))
-                                File.Delete("curl.exe");
+                            ProcessStartInfo psiOpt = new ProcessStartInfo(@Application.StartupPath + @"\curl32\install.cmd");
+                            psiOpt.WindowStyle = ProcessWindowStyle.Hidden;
+                            psiOpt.CreateNoWindow = true;
+                            psiOpt.Verb = "runAs";
+                            Process procCommand = Process.Start(psiOpt);
+                            procCommand.WaitForExit();
+                        }
+                        catch { MessageBox.Show("Error installing the curl utility", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                        this.TopMost = false;
+                        panel2.Visible = true;
+                        pictureBox7.Enabled = true;
+                        Process.Start(@"C:\Windows\curl-ca-bundle.crt");
+                        try
+                        {
                             ProcessStartInfo psiOpt1111 = new ProcessStartInfo("curl");
                             psiOpt1111.WindowStyle = ProcessWindowStyle.Hidden;
                             psiOpt1111.CreateNoWindow = true;
@@ -247,18 +220,8 @@ namespace CurlMini
                             curlLabelStatus.Text = "NO";
                             curlLabelStatus.ForeColor = Color.Red;
                         }
-                        if (File.Exists(@Application.StartupPath + @"\curl.exe"))
-                            File.Delete("curl.exe");
-                        if (File.Exists(@Application.StartupPath + @"\install.cmd"))
-                            File.Delete("install.cmd");
-                        if (File.Exists(@Application.StartupPath + @"\curl.zip"))
-                            File.Delete("curl.zip");
-                        if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
-                            File.Delete("curl-ca-bundle.crt");
-                        if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
-                            File.Delete("libcurl.def");
-                        if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
-                            File.Delete("libcurl.dll");
+                        if (Directory.Exists(@Application.StartupPath + @"\curl32"))
+                            Directory.Delete("curl32", true);
                     }
                     else
                     {
@@ -271,27 +234,18 @@ namespace CurlMini
                 catch
                 {
                     MessageBox.Show("Error installing the curl utility", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (File.Exists(@Application.StartupPath + @"\curl.exe"))
-                        File.Delete("curl.exe");
-                    if (File.Exists(@Application.StartupPath + @"\install.cmd"))
-                        File.Delete("install.cmd");
-                    if (File.Exists(@Application.StartupPath + @"\curl.zip"))
-                        File.Delete("curl.zip");
-                    if (File.Exists(@Application.StartupPath + @"\curl-ca-bundle.crt"))
-                        File.Delete("curl-ca-bundle.crt");
-                    if (File.Exists(@Application.StartupPath + @"\libcurl.def"))
-                        File.Delete("libcurl.def");
-                    if (File.Exists(@Application.StartupPath + @"\libcurl.dll"))
-                        File.Delete("libcurl.dll");
+                    if (Directory.Exists(@Application.StartupPath + @"\curl32"))
+                        Directory.Delete("curl32", true);
                     statusLabel.Text = "Error";
                     statusLabel.ForeColor = Color.Red;
                     curlLabelStatus.Text = "NO";
                     curlLabelStatus.ForeColor = Color.Red;
+
                 }
             }
             else
             {
-                MessageBox.Show("The utility can't download the archive with the curl utility!\nNo access to the server!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Data is corrupted!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 statusLabel.Text = "Error";
                 statusLabel.ForeColor = Color.Red;
                 curlLabelStatus.Text = "NO";
@@ -303,6 +257,7 @@ namespace CurlMini
         {
             panel2.Visible = false;
             pictureBox7.Enabled = false;
+            this.TopMost = true;
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
