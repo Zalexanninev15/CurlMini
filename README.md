@@ -2,6 +2,20 @@
 
 ![image](https://i.imgur.com/GaEEDbp.png)
 
+<p>
+<a href="https://github.com/Zalexanninev15/CurlMini/releases" target="_blank">
+      <img alt="All releases" src="https://img.shields.io/github/downloads/Zalexanninev15/CurlMini/total.svg?style=for-the-badge&logo=github" />
+    </a>    
+<a href="https://github.com/Zalexanninev15/CurlMini/releases/latest" target="_blank">
+      <img alt="Latest release" src="https://img.shields.io/github/downloads/Zalexanninev15/CurlMini/latest/total.svg?style=for-the-badge&logo=github" />
+    </a>    
+</p>
+<p>
+<a href="https://github.com/Zalexanninev15/CurlMini/blob/master/LICENSE">
+      <img alt="License" src="https://img.shields.io/github/license/Zalexanninev15/CurlMini.svg?style=for-the-badge&logo=github" />
+</a>
+</p>
+
 ## Description
 Graphical version of the curl utility for Windows 7-10
 
