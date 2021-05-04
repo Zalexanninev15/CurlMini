@@ -42,16 +42,10 @@ namespace CurlMini
                 curlLabelStatus.ForeColor = Color.Red;
                 InstallCurl.Visible = true;
             }
-            if (File.Exists("requests.log"))
-            {
-                recentList.Items.AddRange(File.ReadAllLines("requests.log")); 
-            }    
+            if (File.Exists("requests.log")) { recentList.Items.AddRange(File.ReadAllLines("requests.log")); }    
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/Zalexanninev15/CurlMini");
-        }
+        private void pictureBox1_Click(object sender, EventArgs e) { Process.Start("https://github.com/Zalexanninev15/CurlMini"); }
 
         async void Send_Click(object sender, EventArgs e)
         {
@@ -81,41 +75,25 @@ namespace CurlMini
                                 StreamReader srIncoming111 = procCommand111.StandardOutput;
                                 newBox.Text = srIncoming111.ReadToEnd();
                                 recentList.Items.Add(requestBox.Text);
-                                using (RegistryKey reg = Registry.CurrentUser.CreateSubKey(@"Software\Zalexanninev15\CurlMini"))
-                                {
-                                    reg.SetValue("LastRequest", requestBox.Text);
-                                }
+                                using (RegistryKey reg = Registry.CurrentUser.CreateSubKey(@"Software\Zalexanninev15\CurlMini")) { reg.SetValue("LastRequest", requestBox.Text); }
                                 statusLabel.Text = "Ok!";
                                 statusLabel.ForeColor = Color.Green;
-                                if (newBox.Text == "")
-                                {
-                                    statusLabel.Text = "There is no data to output";
-                                    statusLabel.ForeColor = Color.Red;
-                                }
+                                if (newBox.Text == "") { statusLabel.Text = "There is no data to output"; statusLabel.ForeColor = Color.Red; }
                             }
                             catch { statusLabel.Text = "Error"; statusLabel.ForeColor = Color.Red; }
                         }
-                        else
-                        {
-                            MessageBox.Show("Your Windows doesn't have the curl utility installed!", "The request cannot be executed", MessageBoxButtons.OK, MessageBoxIcon.Error); statusLabel.Text = "Error"; statusLabel.ForeColor = Color.Red;
-                        }
+                        else { MessageBox.Show("Your Windows doesn't have the curl utility installed!", "The request cannot be executed", MessageBoxButtons.OK, MessageBoxIcon.Error); statusLabel.Text = "Error"; statusLabel.ForeColor = Color.Red; }
                     }
                 }
                 catch { statusLabel.Text = "Error"; MessageBox.Show("No Internet access!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); statusLabel.ForeColor = Color.Red; }
             }
-            else
-            {
-                statusLabel.Text = "Error"; MessageBox.Show("You must fill in the text field with the request!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); statusLabel.ForeColor = Color.Red;
-            }
+            else { statusLabel.Text = "Error"; MessageBox.Show("You must fill in the text field with the request!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); statusLabel.ForeColor = Color.Red; }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             requestBox.Clear();
-            using (RegistryKey reg = Registry.CurrentUser.CreateSubKey(@"Software\Zalexanninev15\CurlMini"))
-            {
-                reg.SetValue("LastRequest", requestBox.Text);
-            }
+            using (RegistryKey reg = Registry.CurrentUser.CreateSubKey(@"Software\Zalexanninev15\CurlMini")) { reg.SetValue("LastRequest", requestBox.Text); }
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -134,51 +112,36 @@ namespace CurlMini
                 recentPanel.Visible = true;
                 rec = 1;
             }
-            if (rec == 2)
-                rec = 0;
+            if (rec == 2) { rec = 0; }
         }
 
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             recentList.Items.Clear();
-            if (File.Exists("requests.log"))
-                File.Delete("requests.log");
+            if (File.Exists("requests.log")) { File.Delete("requests.log"); }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (File.Exists("requests.log"))
-                File.Delete("requests.log");
-            if (Directory.Exists(@Application.StartupPath + @"\curl32"))
-                Directory.Delete("curl32", true);
+            if (File.Exists("requests.log")) { File.Delete("requests.log"); }
+            if (Directory.Exists(@Application.StartupPath + @"\curl32")) { Directory.Delete("curl32", true); }
             using (var sw = new StreamWriter(new FileStream("requests.log", FileMode.Create)))
             {
                 if (recentList != null)
                 {
-                    foreach (var item in recentList.Items) 
-                    {
-                        sw.WriteLine(Convert.ToString(item));
-                    }
+                    foreach (var item in recentList.Items) { sw.WriteLine(Convert.ToString(item)); }
                 }
             }
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            requestBox.Text = Clipboard.GetText();
-        }
+        private void pictureBox5_Click(object sender, EventArgs e) { requestBox.Text = Clipboard.GetText(); }
 
         async void InstallCurl_Click(object sender, EventArgs e)
         {
             statusLabel.Text = "Installing the curl utility...";
             statusLabel.ForeColor = Color.Green;
-            if (Directory.Exists(@Application.StartupPath + @"\curl32"))
-                Directory.Delete("curl32", true);
-            try
-            {
-                File.WriteAllBytes("curl.zip", Properties.Resources.curl);
-            }
-            catch  { }
+            if (Directory.Exists(@Application.StartupPath + @"\curl32")) { Directory.Delete("curl32", true); }
+            try { File.WriteAllBytes("curl.zip", Properties.Resources.curl); } catch  { }
             if (File.Exists(@Application.StartupPath + @"\curl.zip"))
             {
                 try
@@ -220,8 +183,7 @@ namespace CurlMini
                             curlLabelStatus.Text = "NO";
                             curlLabelStatus.ForeColor = Color.Red;
                         }
-                        if (Directory.Exists(@Application.StartupPath + @"\curl32"))
-                            Directory.Delete("curl32", true);
+                        if (Directory.Exists(@Application.StartupPath + @"\curl32")) { Directory.Delete("curl32", true); }
                     }
                     else
                     {
@@ -234,8 +196,7 @@ namespace CurlMini
                 catch
                 {
                     MessageBox.Show("Error installing the curl utility", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (Directory.Exists(@Application.StartupPath + @"\curl32"))
-                        Directory.Delete("curl32", true);
+                    if (Directory.Exists(@Application.StartupPath + @"\curl32")) { Directory.Delete("curl32", true); }
                     statusLabel.Text = "Error";
                     statusLabel.ForeColor = Color.Red;
                     curlLabelStatus.Text = "NO";
@@ -274,18 +235,13 @@ namespace CurlMini
                 requestBox.Size = new Size(475, 220);
                 ml = 1;
             }
-            if (ml == 2)
-                ml = 0;
+            if (ml == 2) { ml = 0; }
         }
 
         private void recentList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (run == 1)
-                requestBox.Text = @Convert.ToString(recentList.SelectedItem);
-            if (run == 0)
-            {
-                run = 1;
-            }
+            if (run == 1) { requestBox.Text = @Convert.ToString(recentList.SelectedItem); }
+            if (run == 0) { run = 1; }
         }
     }
 }
