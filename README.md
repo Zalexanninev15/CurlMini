@@ -1,6 +1,6 @@
 # CurlMini | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/tag/1.2.5)
 
-![alt](https://i.imgur.com/GaEEDbp.png)
+![alt](https://github.com/Zalexanninev15/CurlMini/blob/master/Logo.png?raw=true)
 
 [![](https://img.shields.io/badge/OS-Windows-informational?logo=windows)](https://github.com/Zalexanninev15/CurlMini)
 [![](https://img.shields.io/github/v/release/Zalexanninev15/CurlMini)](https://github.com/Zalexanninev15/CurlMini/releases/latest)
