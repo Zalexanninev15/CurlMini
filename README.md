@@ -1,4 +1,4 @@
-# CurlMini | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/tag/1.2.5)
+# CurlMini | [Latest release](https://github.com/Zalexanninev15/CurlMini/releases/latest)
 
 ![alt](https://github.com/Zalexanninev15/CurlMini/blob/master/Logo.png?raw=true)
 
