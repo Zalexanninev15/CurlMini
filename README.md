@@ -59,4 +59,5 @@ curl -F shorten=https://www.youtube.com/ https://0x0.st
 3. Click the "Send request" button and wait for the process to finish. Text fields with results will be automatically updated at the end of the process.
 
 ## Build
-Compile using Visual Studio 2015-2019, tested on Visual Studio 2019
+
+Compile using [SharpDevelop](https://sourceforge.net/projects/sharpdevelop) or [Visual Studio](https://visualstudio.microsoft.com/vs)
