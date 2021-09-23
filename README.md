@@ -3,6 +3,7 @@
 ![alt](https://github.com/Zalexanninev15/CurlMini/blob/master/Logo.png?raw=true)
 
 [![](https://img.shields.io/badge/OS-Windows-informational?logo=windows)](https://github.com/Zalexanninev15/CurlMini)
+[![](https://img.shields.io/badge/.NET-Framework_4.5-4E2ACD.svg)](https://www.microsoft.com/en-US/download/details.aspx?id=30653)
 [![](https://img.shields.io/github/v/release/Zalexanninev15/CurlMini)](https://github.com/Zalexanninev15/CurlMini/releases/latest)
 [![](https://img.shields.io/github/downloads/Zalexanninev15/CurlMini/total.svg)](https://github.com/Zalexanninev15/CurlMini/releases)
 [![](https://img.shields.io/github/last-commit/Zalexanninev15/CurlMini)](https://github.com/Zalexanninev15/CurlMini/commits/master)
