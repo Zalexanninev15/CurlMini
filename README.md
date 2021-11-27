@@ -18,7 +18,7 @@
 Graphical version of the curl utility for Windows 7-10
 
 ## System requirements
-* **OS:** Windows 7/8/8.1/10
+* **OS:** Windows 7 or higher
 * **Additional:** .NET Framework 4.5, curl (if this utility is not available, you will be prompted to install it in automatic mode)
 
 ## Features
