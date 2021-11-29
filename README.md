@@ -15,11 +15,11 @@
 ![alt](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Screenshot.png)
 
 ## Description
-Graphical version of the curl utility for Windows 7-10
+Graphical version of the curl utility for Windows
 
 ## System requirements
 * **OS:** Windows 7 or higher
-* **Additional:** .NET Framework 4.5, curl (if this utility is not available, you will be prompted to install it in automatic mode)
+* **Additional:** .NET Framework 4.5 or higher, curl (if this utility is not available, you will be prompted to install it in automatic mode)
 
 ## Features
 
@@ -39,7 +39,7 @@ Graphical version of the curl utility for Windows 7-10
 
 ### Text:
 
-1. Launch the utility and make sure that your version of Windows 10 is higher or equal to build 1803. **This is very important!**
+1. Launch the utility and make sure that your version of Windows 10 is higher or equal to build 1803 (or you have Windows > 10). If you have Windows < 10 - please, install the curl utility from application
 
 2. Enter/paste the desired command in the "Requests:" text field (the command must be written/inserted without "curl" at the beginning). 
 
