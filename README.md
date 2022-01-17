@@ -4,6 +4,7 @@
 
 [![](https://img.shields.io/badge/OS-Windows-informational?logo=windows)](https://github.com/Zalexanninev15/CurlMini)
 [![](https://img.shields.io/badge/written_on-.NET_Framework_4.5-512BD4.svg?logo=dotnet)](https://dotnet.microsoft.com/download/dotnet-framework/net45)
+[![](https://img.shields.io/badge/written_on-CSharp-239120.svg?logo=csharp)](https://github.com/Zalexanninev15/CurlMini)
 [![](https://img.shields.io/github/v/release/Zalexanninev15/CurlMini)](https://github.com/Zalexanninev15/CurlMini/releases/latest)
 [![](https://img.shields.io/github/downloads/Zalexanninev15/CurlMini/total.svg)](https://github.com/Zalexanninev15/CurlMini/releases)
 [![](https://img.shields.io/github/last-commit/Zalexanninev15/CurlMini)](https://github.com/Zalexanninev15/CurlMini/commits/master)
