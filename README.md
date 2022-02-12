@@ -48,13 +48,13 @@ Graphical version of the curl utility for Windows
 
 *The original request:* 
 
-```bash
+```batch
 curl -F shorten=https://www.youtube.com/ https://0x0.st
 ```
 
 *The text you need:*
 
-```bash
+```console
 -F shorten=https://www.youtube.com/ https://0x0.st
 ```
 
