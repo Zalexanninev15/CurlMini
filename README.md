@@ -42,7 +42,7 @@ Graphical version of the curl utility for Windows.
 
 ### GIF
 
-[See here](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Example.gif)
+![See here](https://github.com/Zalexanninev15/CurlMini/blob/master/CurlMini-Example.gif?raw=true)
 
 ### Text
 
